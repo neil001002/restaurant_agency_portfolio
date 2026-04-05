@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Bebas+Neue&family=Nunito:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Josefin+Sans:wght@100;200;300;400&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+#root{min-height:600px;}
+
+/* AGENCY */
+.ag{background:#0a0a0a;color:#f5f0e8;min-height:600px;}
+.ag-nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,.06);}
+.ag-logo{font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:.1em;color:#f5f0e8;}
+.ag-logo span{color:#e8a030;}
+.ag-nav-links{display:flex;gap:1.5rem;list-style:none;}
+.ag-nav-links a{color:rgba(245,240,232,.5);text-decoration:none;font-size:.75rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;transition:color .2s;}
+.ag-nav-links a:hover{color:#e8a030;}
+.ag-cta{background:#e8a030;color:#0a0a0a;border:none;padding:.55rem 1.2rem;font-weight:700;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;}
+
+.ag-hero{padding:3rem 2rem 2rem;position:relative;overflow:hidden;}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;}
+.hero-orb{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,48,.1),transparent 70%);right:-80px;top:50%;transform:translateY(-50%);}
+.hero-inner{position:relative;z-index:2;max-width:650px;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(232,160,48,.1);border:1px solid rgba(232,160,48,.2);color:#e8a030;padding:.35rem .9rem;font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem;}
+.hero-badge::before{content:'';width:5px;height:5px;background:#e8a030;border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.hero-h1{font-family:'Playfair Display',serif;font-size:2.8rem;line-height:1.05;font-weight:700;margin-bottom:1rem;}
+.hero-h1 em{font-style:italic;color:#e8a030;}
+.hero-sub{font-size:.9rem;color:rgba(245,240,232,.5);line-height:1.8;max-width:480px;margin-bottom:1.5rem;font-weight:300;}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;}
+.btn-gold{background:#e8a030;color:#0a0a0a;border:none;padding:.75rem 1.6rem;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-gold:hover{background:#f5b840;}
+.btn-outline{background:transparent;color:#f5f0e8;border:1px solid rgba(245,240,232,.2);padding:.75rem 1.6rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-outline:hover{border-color:#e8a030;color:#e8a030;}
+.stats-row{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap;}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.8rem;color:#e8a030;}
+.stat-l{font-size:.65rem;color:rgba(245,240,232,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:.15rem;}
+
+.designs-sec{padding:2.5rem 2rem;}
+.sec-head{text-align:center;margin-bottom:2.5rem;}
+.sec-tag{display:inline-block;color:#e8a030;font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem;}
+.sec-h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;}
+.sec-h2 em{font-style:italic;color:#e8a030;}
+.sec-sub{color:rgba(245,240,232,.4);margin-top:.6rem;font-size:.85rem;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7;}
+
+.designs-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;max-width:1000px;margin:0 auto;}
+.dcard{background:#111;cursor:pointer;transition:transform .3s,box-shadow .3s;border:1px solid rgba(255,255,255,.05);}
+.dcard:hover{transform:translateY(-6px);box-shadow:0 16px 50px rgba(0,0,0,.5);}
+.dcard-preview{height:220px;position:relative;overflow:hidden;}
+.dcard-overlay{position:absolute;inset:0;background:rgba(10,10,10,.75);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s;}
+.dcard:hover .dcard-overlay{opacity:1;}
+.dcard-overlay-btn{color:#e8a030;border:1px solid #e8a030;padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;}
+.dcard-info{padding:1.2rem;}
+.dcard-num{font-size:.65rem;color:#e8a030;letter-spacing:.18em;margin-bottom:.3rem;font-family:'DM Sans',monospace;}
+.dcard-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.25rem;}
+.dcard-desc{font-size:.75rem;color:rgba(245,240,232,.45);line-height:1.6;margin-bottom:.8rem;}
+.dcard-tags{display:flex;gap:.4rem;flex-wrap:wrap;}
+.dcard-tag{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);padding:.2rem .6rem;font-size:.62rem;letter-spacing:.07em;color:rgba(245,240,232,.5);}
+
+/* MINI PREVIEWS */
+.p1{background:#0d0b08;height:100%;padding:.8rem;font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column;}
+.p1-nav{display:flex;justify-content:space-between;align-items:center;padding:.25rem 0;border-bottom:1px solid rgba(212,175,55,.2);margin-bottom:.6rem;}
+.p1-logo{font-size:.6rem;letter-spacing:.3em;color:#d4af37;text-transform:uppercase;}
+.p1-links{display:flex;gap:.5rem;}
+.p1-links span{font-size:.45rem;color:rgba(212,175,55,.45);letter-spacing:.08em;text-transform:uppercase;}
+.p1-hero{flex:1;background:linear-gradient(150deg,#1a1208,#0d0b08);border:1px solid rgba(212,175,55,.1);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;padding:.8rem;position:relative;}
+.p1-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 80% 40%,rgba(139,69,19,.25),transparent 60%);}
+.p1-eye{font-size:.4rem;letter-spacing:.3em;color:#d4af37;text-transform:uppercase;position:relative;z-index:1;margin-bottom:.25rem;}
+.p1-h{font-size:1.2rem;line-height:1.05;color:#f5edd8;position:relative;z-index:1;}
+.p1-h em{font-style:italic;color:#d4af37;}
+.p1-btn{margin-top:.4rem;background:transparent;border:1px solid #d4af37;color:#d4af37;font-family:'Cormorant Garamond',serif;font-size:.42rem;letter-spacing:.18em;text-transform:uppercase;padding:.25rem .6rem;cursor:pointer;position:relative;z-index:1;}
+.p1-strips{display:flex;gap:.25rem;margin-top:.4rem;position:relative;z-index:1;}
+.p1-strip{flex:1;height:2.5px;}
+
+.p2{background:#f5f011;height:100%;font-family:'Nunito',sans-serif;display:flex;flex-direction:column;}
+.p2-nav{background:#111;display:flex;justify-content:space-between;align-items:center;padding:.4rem .7rem;}
+.p2-logo{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:#f5f011;letter-spacing:.05em;}
+.p2-obtn{background:#f5f011;color:#111;font-size:.4rem;font-weight:800;padding:.18rem .45rem;border:none;text-transform:uppercase;letter-spacing:.08em;}
+.p2-hero{flex:1;padding:.7rem;display:flex;flex-direction:column;justify-content:center;position:relative;}
+.p2-dots{position:absolute;right:.4rem;top:.4rem;display:grid;grid-template-columns:repeat(4,5px);gap:2.5px;}
+.p2-dot{width:5px;height:5px;background:#111;opacity:.2;border-radius:50%;}
+.p2-big{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:.9;color:#111;}
+.p2-big span{color:#e83a20;}
+.p2-s{font-size:.5rem;color:#111;font-weight:700;margin-top:.35rem;letter-spacing:.05em;text-transform:uppercase;}
+.p2-pills{display:flex;gap:.25rem;margin-top:.5rem;flex-wrap:wrap;}
+.p2-pill{background:#111;color:#f5f011;font-size:.42rem;font-weight:700;padding:.18rem .45rem;border-radius:50px;text-transform:uppercase;}
+.p2-pill.r{background:#e83a20;}
+
+.p3{background:#f7f2e8;height:100%;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column;}
+.p3-nav{display:flex;justify-content:space-between;align-items:center;padding:.45rem .7rem;border-bottom:1px solid rgba(101,88,72,.1);}
+.p3-logo{font-family:'Playfair Display',serif;font-size:.7rem;color:#4a3f30;}
+.p3-logo em{font-style:italic;color:#7a5c2e;}
+.p3-lnks span{font-size:.42rem;color:rgba(74,63,48,.45);margin:0 .25rem;text-transform:uppercase;letter-spacing:.08em;}
+.p3-hero{display:flex;flex:1;}
+.p3-left{flex:1;padding:.7rem;display:flex;flex-direction:column;justify-content:center;}
+.p3-eye{font-size:.4rem;color:#8b6914;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+.p3-h{font-size:1.05rem;color:#4a3f30;line-height:1.15;}
+.p3-h em{font-style:italic;color:#7a5c2e;}
+.p3-d{font-size:.45rem;color:rgba(74,63,48,.55);line-height:1.6;margin-top:.35rem;}
+.p3-btn{display:inline-block;margin-top:.4rem;background:#4a3f30;color:#f7f2e8;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .6rem;border:none;cursor:pointer;}
+.p3-right{width:42%;background:linear-gradient(145deg,#c8a96e,#8b6914);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.p3-leaf{position:absolute;font-size:1.2rem;opacity:.3;}
+.p3-circle{width:55px;height:55px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;}
+.p3-ci{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);}
+.p3-bottom{display:flex;}
+.p3-si{flex:1;padding:.35rem .5rem;background:#efe8d8;border-right:1px solid rgba(101,88,72,.1);}
+.p3-si:last-child{border-right:none;background:#ddd6c4;}
+.p3-sl{font-size:.38rem;text-transform:uppercase;letter-spacing:.08em;color:#8b6914;}
+.p3-sv{font-size:.5rem;color:#4a3f30;font-weight:600;margin-top:.08rem;}
+
+.p4{background:#fafafa;height:100%;font-family:'Josefin Sans',sans-serif;display:flex;flex-direction:column;}
+.p4-nav{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;border-bottom:1px solid rgba(0,0,0,.07);}
+.p4-logo{font-size:.6rem;letter-spacing:.5em;color:#111;font-weight:200;text-transform:uppercase;}
+.p4-logo span{color:#c41e3a;}
+.p4-nr{display:flex;gap:.7rem;align-items:center;}
+.p4-nls span{font-size:.38rem;color:rgba(0,0,0,.3);letter-spacing:.18em;text-transform:uppercase;margin:0 .25rem;}
+.p4-rbtn{background:#c41e3a;color:#fff;font-size:.38rem;letter-spacing:.12em;text-transform:uppercase;padding:.22rem .55rem;border:none;cursor:pointer;}
+.p4-hero{flex:1;display:flex;}
+.p4-left{flex:1.2;display:flex;flex-direction:column;justify-content:center;padding:.8rem;}
+.p4-jp{font-size:.55rem;color:rgba(0,0,0,.18);letter-spacing:.1em;margin-bottom:.4rem;font-weight:100;}
+.p4-h{font-size:1.3rem;color:#111;line-height:1;font-weight:100;letter-spacing:.05em;text-transform:uppercase;}
+.p4-h strong{font-weight:400;}
+.p4-line{width:20px;height:1px;background:#c41e3a;margin:.4rem 0;}
+.p4-sub{font-size:.4rem;color:rgba(0,0,0,.35);line-height:1.8;font-weight:300;letter-spacing:.04em;max-width:110px;}
+.p4-right{flex:1;background:#111;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.p4-ring{width:70px;height:70px;border-radius:50%;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;animation:spin 25s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.p4-ring2{width:48px;height:48px;border-radius:50%;border:1px solid rgba(196,30,58,.3);display:flex;align-items:center;justify-content:center;animation:spin 15s linear infinite reverse;}
+.p4-ring3{width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
+.p4-dot{width:6px;height:6px;border-radius:50%;background:#c41e3a;}
+.p4-bottom{display:flex;border-top:1px solid rgba(0,0,0,.07);}
+.p4-bi{flex:1;padding:.35rem .5rem;border-right:1px solid rgba(0,0,0,.07);}
+.p4-bi:last-child{border-right:none;}
+.p4-bl{font-size:.33rem;color:rgba(0,0,0,.28);letter-spacing:.13em;text-transform:uppercase;margin-bottom:.1rem;}
+.p4-bv{font-size:.48rem;color:#111;font-weight:300;}
+.p4-bv span{color:#c41e3a;}
+
+/* BACK BTN */
+.back-btn{position:sticky;top:0;left:0;z-index:9999;display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:#fff;padding:.45rem .9rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;transition:all .2s;margin-bottom:0;}
+.back-btn:hover{background:rgba(0,0,0,.9);}
+
+/* ── FULL DESIGNS ── */
+/* EMBER & OAK */
+.eo{font-family:'Cormorant Garamond',serif;background:#090805;color:#f5edd8;min-height:600px;}
+.eo-nav{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.5rem;background:#090805;border-bottom:1px solid rgba(212,175,55,.1);}
+.eo-logo-w{text-align:center;}
+.eo-logo-m{font-size:1.1rem;letter-spacing:.3em;color:#d4af37;text-transform:uppercase;font-weight:600;}
+.eo-logo-s{font-size:.5rem;letter-spacing:.4em;color:rgba(212,175,55,.4);text-transform:uppercase;}
+.eo-nl{display:flex;gap:2rem;list-style:none;}
+.eo-nl a{color:rgba(245,237,216,.5);text-decoration:none;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;transition:color .2s;font-family:'DM Sans',sans-serif;}
+.eo-nl a:hover{color:#d4af37;}
+.eo-rl{color:#d4af37 !important;border:1px solid rgba(212,175,55,.35);padding:.35rem 1rem;}
+
+.eo-hero{min-height:420px;position:relative;display:flex;align-items:center;overflow:hidden;}
+.eo-hbg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0f00,rgba(9,8,5,0) 50%),radial-gradient(ellipse at 72% 50%,rgba(139,69,19,.2),transparent 55%);}
+.eo-htex{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(212,175,55,.015) 0,rgba(212,175,55,.015) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(90deg,rgba(212,175,55,.015) 0,rgba(212,175,55,.015) 1px,transparent 1px,transparent 40px);}
+.eo-himg{position:absolute;right:0;top:0;bottom:0;width:48%;background:linear-gradient(to left,rgba(9,8,5,0),rgba(9,8,5,1) 65%),linear-gradient(135deg,#2d1a05,#1a0f00);clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);}
+.eo-hplate{position:absolute;right:10%;top:50%;transform:translateY(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,#3d2510,#1a0f00);border:1px solid rgba(212,175,55,.18);display:flex;align-items:center;justify-content:center;box-shadow:0 0 60px rgba(212,175,55,.06);}
+.eo-hpi{width:155px;height:155px;border-radius:50%;border:1px solid rgba(212,175,55,.1);display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.eo-hc{position:relative;z-index:2;padding:0 2.5rem;max-width:560px;}
+.eo-pre{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;}
+.eo-line{width:30px;height:1px;background:#d4af37;}
+.eo-pt{font-size:.62rem;letter-spacing:.3em;color:#d4af37;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.eo-h1{font-size:3.2rem;line-height:1;font-weight:300;}
+.eo-h1 em{font-style:italic;color:#d4af37;display:block;}
+.eo-h1 strong{font-weight:600;display:block;}
+.eo-hdesc{font-size:.95rem;color:rgba(245,237,216,.45);line-height:1.85;margin:1.2rem 0 1.8rem;max-width:380px;font-style:italic;font-weight:300;}
+.eo-hbtns{display:flex;gap:.8rem;flex-wrap:wrap;}
+.eo-bgold{background:#d4af37;color:#1a0f00;padding:.75rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;border:none;cursor:pointer;transition:all .2s;}
+.eo-bgold:hover{background:#e8c84a;}
+.eo-bghost{background:transparent;color:#d4af37;border:1px solid rgba(212,175,55,.35);padding:.75rem 1.8rem;font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.eo-bghost:hover{border-color:#d4af37;}
+
+.eo-scroll{overflow:hidden;background:#120d04;border-top:1px solid rgba(212,175,55,.08);border-bottom:1px solid rgba(212,175,55,.08);padding:.55rem 0;}
+.eo-sci{display:flex;gap:2.5rem;animation:sl 22s linear infinite;white-space:nowrap;}
+@keyframes sl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.eo-si{font-size:.58rem;letter-spacing:.28em;color:rgba(212,175,55,.38);text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.eo-sd{color:#d4af37;margin:0 1.2rem;}
+
+.eo-about{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:5rem 2.5rem;align-items:center;}
+.eo-atag{font-size:.6rem;letter-spacing:.28em;color:#d4af37;text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;display:flex;align-items:center;gap:.8rem;}
+.eo-atag::before{content:'';width:24px;height:1px;background:#d4af37;}
+.eo-ah2{font-size:2.2rem;font-weight:300;line-height:1.2;margin-bottom:1.2rem;}
+.eo-ah2 em{font-style:italic;color:#d4af37;}
+.eo-ap{font-size:.92rem;color:rgba(245,237,216,.45);line-height:2;font-style:italic;font-weight:300;margin-bottom:1.2rem;}
+.eo-ap2{font-size:.8rem;color:rgba(245,237,216,.35);line-height:1.9;font-family:'DM Sans',sans-serif;font-weight:300;}
+.eo-sgrid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.eo-sbox{background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.1);padding:1.5rem;text-align:center;}
+.eo-sbox.f{background:rgba(212,175,55,.09);border-color:rgba(212,175,55,.22);}
+.eo-snum{font-size:2.4rem;color:#d4af37;font-weight:300;}
+.eo-slabel{font-size:.6rem;letter-spacing:.2em;color:rgba(245,237,216,.38);text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-top:.35rem;}
+
+.eo-menu{padding:4rem 2.5rem;background:#0d0b06;}
+.eo-mhead{text-align:center;margin-bottom:2.5rem;}
+.eo-mtag{font-size:.6rem;letter-spacing:.32em;color:#d4af37;text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-bottom:.8rem;}
+.eo-mh2{font-size:2.4rem;font-weight:300;}
+.eo-mh2 em{font-style:italic;color:#d4af37;}
+.eo-tabs{display:inline-flex;border:1px solid rgba(212,175,55,.14);margin-bottom:2.5rem;}
+.eo-tab{padding:.55rem 1.5rem;font-family:'DM Sans',sans-serif;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;background:transparent;color:rgba(245,237,216,.38);border:none;cursor:pointer;transition:all .2s;border-right:1px solid rgba(212,175,55,.14);}
+.eo-tab:last-child{border-right:none;}
+.eo-tab.active{background:rgba(212,175,55,.09);color:#d4af37;}
+.eo-mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:0 auto;}
+.eo-mi{border:1px solid rgba(212,175,55,.09);padding:1.5rem;transition:all .3s;}
+.eo-mi:hover{border-color:rgba(212,175,55,.25);background:rgba(212,175,55,.02);}
+.eo-mie{font-size:1.8rem;margin-bottom:.8rem;}
+.eo-mitags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem;}
+.eo-mitag{font-size:.52rem;border:1px solid rgba(212,175,55,.18);color:rgba(212,175,55,.55);padding:.12rem .45rem;letter-spacing:.08em;text-transform:uppercase;font-family:'DM Sans',sans-serif;}
+.eo-min{font-size:1.05rem;font-weight:600;margin-bottom:.3rem;}
+.eo-mid{font-size:.78rem;color:rgba(245,237,216,.38);line-height:1.7;font-style:italic;font-weight:300;margin-bottom:.8rem;}
+.eo-mip{font-size:.95rem;color:#d4af37;}
+
+.eo-res{padding:4rem 2.5rem;text-align:center;background:linear-gradient(135deg,#1a0f00,rgba(9,8,5,0) 50%,#1a0f00);position:relative;}
+.eo-resbg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,175,55,.04),transparent 70%);}
+.eo-resh2{font-size:2.4rem;font-weight:300;position:relative;z-index:1;margin-bottom:.8rem;}
+.eo-resh2 em{font-style:italic;color:#d4af37;}
+.eo-resp{color:rgba(245,237,216,.38);font-style:italic;margin-bottom:2rem;position:relative;z-index:1;}
+.eo-form{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+.eo-inp{background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.18);color:#f5edd8;padding:.7rem 1.2rem;font-family:'Cormorant Garamond',serif;font-size:.9rem;width:150px;outline:none;}
+.eo-inp::placeholder{color:rgba(245,237,216,.28);}
+.eo-foot{background:#060504;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(212,175,55,.07);}
+.eo-flogo{font-size:.95rem;letter-spacing:.28em;color:#d4af37;text-transform:uppercase;}
+.eo-fcopy{font-size:.65rem;color:rgba(245,237,216,.2);font-family:'DM Sans',sans-serif;}
+.eo-flinks{display:flex;gap:1.2rem;}
+.eo-flinks span{font-size:.65rem;color:rgba(245,237,216,.28);font-family:'DM Sans',sans-serif;cursor:pointer;}
+
+/* ZESTY */
+.zy{font-family:'Nunito',sans-serif;background:#111;min-height:600px;}
+.zy-nav{display:flex;justify-content:space-between;align-items:center;padding:.9rem 2.5rem;background:#111;border-bottom:3px solid #f5f011;}
+.zy-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#f5f011;}
+.zy-logo span{color:#e83a20;}
+.zy-nl{display:flex;gap:1.2rem;list-style:none;}
+.zy-nl a{color:rgba(255,255,255,.55);text-decoration:none;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;transition:color .2s;}
+.zy-nl a:hover{color:#f5f011;}
+.zy-obtn{background:#f5f011;color:#111;border:none;padding:.6rem 1.2rem;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;}
+
+.zy-hero{display:grid;grid-template-columns:1fr 1fr;min-height:380px;}
+.zy-hl{display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;position:relative;}
+.zy-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,#f5f011 0,#f5f011 36px,#e83a20 36px,#e83a20 72px);}
+.zy-badge{display:inline-flex;align-items:center;gap:.4rem;background:#e83a20;color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;margin-bottom:1.2rem;align-self:flex-start;}
+.zy-h1{font-family:'Bebas Neue',sans-serif;font-size:4.5rem;line-height:.9;color:#f5f011;margin-bottom:.8rem;}
+.zy-h1 span{color:#e83a20;display:block;}
+.zy-h1 em{font-style:italic;color:#fff;font-size:.45em;font-family:'Nunito',sans-serif;font-weight:300;display:block;margin-top:.4rem;}
+.zy-sub{color:rgba(255,255,255,.45);font-size:.88rem;line-height:1.75;max-width:380px;margin-bottom:1.5rem;font-weight:300;}
+.zy-hbtns{display:flex;gap:.8rem;flex-wrap:wrap;}
+.zy-by{background:#f5f011;color:#111;border:none;padding:.8rem 1.6rem;font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;transition:all .2s;}
+.zy-by:hover{background:#fff;}
+.zy-br{background:#e83a20;color:#fff;border:none;padding:.8rem 1.6rem;font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.07em;cursor:pointer;transition:all .2s;}
+.zy-br:hover{background:#ff4d30;}
+.zy-hr{background:#f5f011;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.zy-hem{font-size:9rem;position:relative;z-index:1;animation:wob 3s ease-in-out infinite;}
+@keyframes wob{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(4deg) scale(1.04)}}
+.zy-hpat{position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(0,0,0,.04) 0,rgba(0,0,0,.04) 9px,transparent 9px,transparent 18px);}
+.zy-hct{position:absolute;bottom:1.5rem;right:1.5rem;font-family:'Bebas Neue',sans-serif;font-size:4rem;color:rgba(0,0,0,.07);line-height:1;}
+
+.zy-mq{background:#e83a20;padding:.65rem 0;overflow:hidden;}
+.zy-mqi{display:flex;gap:1.8rem;animation:sl 14s linear infinite;white-space:nowrap;}
+.zy-mqi2{display:flex;gap:1.8rem;white-space:nowrap;}
+.zy-mq-item{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:#fff;letter-spacing:.08em;}
+.zy-mq-star{color:#f5f011;margin:0 .8rem;}
+
+.zy-feat{padding:3.5rem 2.5rem;background:#f5f011;}
+.zy-fh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;}
+.zy-fh2{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#111;line-height:1;}
+.zy-fh2 span{color:#e83a20;}
+.zy-fl{font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;color:#111;text-decoration:none;border-bottom:2px solid #111;padding-bottom:.15rem;}
+.zy-items{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;}
+.zy-item{background:#111;overflow:hidden;transition:transform .2s;}
+.zy-item:hover{transform:translateY(-4px);}
+.zy-item-img{height:130px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,#1a1a1a,#2a2a2a);}
+.zy-item-body{padding:.8rem;}
+.zy-item-name{font-weight:800;font-size:.88rem;color:#f5f011;margin-bottom:.25rem;}
+.zy-item-desc{font-size:.72rem;color:rgba(255,255,255,.38);line-height:1.5;margin-bottom:.6rem;}
+.zy-item-ft{display:flex;justify-content:space-between;align-items:center;}
+.zy-item-price{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#e83a20;}
+.zy-add{background:#f5f011;color:#111;border:none;font-weight:800;font-size:.68rem;padding:.3rem .7rem;cursor:pointer;}
+
+.zy-ab{display:grid;grid-template-columns:1fr 1fr;background:#111;}
+.zy-abl{background:#e83a20;padding:4rem 2.5rem;display:flex;flex-direction:column;justify-content:center;}
+.zy-abtag{font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.8rem;}
+.zy-abh2{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:#fff;line-height:.95;margin-bottom:1.2rem;}
+.zy-abh2 span{color:#f5f011;}
+.zy-abp{color:rgba(255,255,255,.65);line-height:1.8;font-size:.88rem;font-weight:300;margin-bottom:1.2rem;}
+.zy-sts{display:flex;gap:1.8rem;}
+.zy-st-n{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#f5f011;line-height:1;}
+.zy-st-l{font-size:.62rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:.15rem;}
+.zy-abr{padding:4rem 2.5rem;display:flex;flex-direction:column;justify-content:center;background:#1a1a1a;}
+.zy-abrt{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#f5f011;margin-bottom:1.5rem;}
+.zy-step{display:flex;gap:.8rem;margin-bottom:1.2rem;}
+.zy-sn{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:#e83a20;min-width:2.2rem;line-height:1;}
+.zy-st-title{font-weight:800;color:#f5f011;font-size:.82rem;margin-bottom:.25rem;text-transform:uppercase;}
+.zy-st-desc{color:rgba(255,255,255,.4);font-size:.75rem;line-height:1.6;font-weight:300;}
+.zy-foot{background:#0a0a0a;border-top:3px solid #f5f011;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.zy-flogo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#f5f011;}
+.zy-flogo span{color:#e83a20;}
+.zy-fcopy{font-size:.68rem;color:rgba(255,255,255,.2);font-weight:600;}
+.zy-fsoc{display:flex;gap:.8rem;}
+.zy-sb{width:30px;height:30px;background:#f5f011;color:#111;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:900;cursor:pointer;transition:all .2s;}
+.zy-sb:hover{background:#e83a20;color:#fff;}
+
+/* FLORA CAFÉ */
+.fc{font-family:'DM Sans',sans-serif;background:#f7f2e8;color:#3d3326;min-height:600px;}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.5rem;background:rgba(247,242,232,.95);border-bottom:1px solid rgba(101,88,72,.1);}
+.fc-logo{font-family:'Playfair Display',serif;font-size:1.05rem;color:#3d3326;}
+.fc-logo em{font-style:italic;color:#7a5c2e;}
+.fc-nl{display:flex;gap:1.8rem;list-style:none;}
+.fc-nl a{color:rgba(61,51,38,.55);text-decoration:none;font-size:.78rem;letter-spacing:.04em;transition:color .2s;}
+.fc-nl a:hover{color:#7a5c2e;}
+.fc-obtn{background:#4a3f30;color:#f7f2e8;border:none;padding:.58rem 1.2rem;font-size:.75rem;letter-spacing:.07em;cursor:pointer;font-weight:500;}
+
+.fc-hero{display:grid;grid-template-columns:1fr 1fr;min-height:380px;}
+.fc-hl{display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;}
+.fc-htag{display:inline-flex;align-items:center;gap:.6rem;color:#8b6914;font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;margin-bottom:1.2rem;}
+.fc-htag::before{content:'✦';font-size:.55rem;}
+.fc-h1{font-family:'Playfair Display',serif;font-size:2.8rem;line-height:1.1;color:#3d3326;margin-bottom:1rem;}
+.fc-h1 em{font-style:italic;color:#7a5c2e;}
+.fc-hp{font-family:'Crimson Pro',serif;font-size:1rem;color:rgba(61,51,38,.55);line-height:1.95;font-style:italic;max-width:380px;margin-bottom:1.6rem;}
+.fc-hbtns{display:flex;gap:.8rem;align-items:center;}
+.fc-bd{background:#4a3f30;color:#f7f2e8;border:none;padding:.78rem 1.8rem;font-size:.78rem;letter-spacing:.07em;cursor:pointer;font-weight:500;transition:all .2s;}
+.fc-bd:hover{background:#7a5c2e;}
+.fc-bt{background:transparent;color:#7a5c2e;border:none;font-size:.78rem;font-weight:500;cursor:pointer;text-decoration:underline;text-underline-offset:4px;}
+.fc-hr{background:#c8a96e;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.fc-blob{position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.13);top:50%;left:50%;transform:translate(-50%,-50%);}
+.fc-blob2{position:absolute;width:145px;height:145px;border-radius:50%;background:rgba(255,255,255,.09);top:28%;left:28%;}
+.fc-leaf1,.fc-leaf2,.fc-leaf3{position:absolute;font-size:2.2rem;opacity:.28;}
+.fc-leaf1{top:8%;left:8%;transform:rotate(-28deg);}
+.fc-leaf2{bottom:12%;right:8%;transform:rotate(18deg);}
+.fc-leaf3{top:18%;right:18%;transform:rotate(42deg);}
+.fc-hri{position:relative;z-index:1;text-align:center;}
+.fc-cup{font-size:6rem;animation:flt 4s ease-in-out infinite;}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.fc-bpill{background:#4a3f30;color:#f7f2e8;font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.35rem .9rem;margin-top:.8rem;display:inline-block;}
+
+.fc-spec{padding:3.5rem 2.5rem;}
+.fc-sh{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;}
+.fc-sh2{font-family:'Playfair Display',serif;font-size:2.1rem;color:#3d3326;}
+.fc-sh2 em{font-style:italic;color:#7a5c2e;}
+.fc-sl{font-size:.75rem;color:#7a5c2e;border-bottom:1px solid #7a5c2e;padding-bottom:.1rem;cursor:pointer;}
+.fc-sg{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;}
+.fc-sc{background:#fff;border:1px solid rgba(101,88,72,.07);transition:all .3s;}
+.fc-sc:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(74,63,48,.08);}
+.fc-si{height:140px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+.w1{background:#f0e4cc;}.w2{background:#e8d4b0;}.w3{background:#d4c4a0;}
+.fc-sb{padding:1rem;}
+.fc-sn{font-family:'Playfair Display',serif;font-size:1rem;color:#3d3326;margin-bottom:.25rem;}
+.fc-sd{font-family:'Crimson Pro',serif;font-size:.85rem;color:rgba(61,51,38,.5);font-style:italic;line-height:1.6;margin-bottom:.7rem;}
+.fc-sf{display:flex;justify-content:space-between;align-items:center;}
+.fc-sp{font-weight:700;font-size:.95rem;color:#7a5c2e;}
+.fc-sa{background:#4a3f30;color:#f7f2e8;border:none;font-size:.65rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:.28rem .65rem;cursor:pointer;}
+
+.fc-story{display:grid;grid-template-columns:1fr 1fr;background:#ede7d8;}
+.fc-stl{padding:4rem 2.5rem;display:flex;flex-direction:column;justify-content:center;}
+.fc-stt{font-size:.62rem;color:#8b6914;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem;}
+.fc-sth2{font-family:'Playfair Display',serif;font-size:2.1rem;color:#3d3326;line-height:1.2;margin-bottom:1.2rem;}
+.fc-sth2 em{font-style:italic;color:#7a5c2e;}
+.fc-stp{font-family:'Crimson Pro',serif;font-size:.95rem;color:rgba(61,51,38,.6);line-height:2;font-style:italic;margin-bottom:.8rem;}
+.fc-stp2{font-size:.82rem;color:rgba(61,51,38,.45);line-height:1.9;}
+.fc-sig{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:#7a5c2e;margin-top:1.2rem;}
+.fc-str{padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.8rem;align-items:start;}
+.fc-gi{background:#c8a96e;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.fc-foot{background:#3d3326;color:#f7f2e8;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;}
+.fc-flogo{font-family:'Playfair Display',serif;font-size:1rem;}
+.fc-flogo em{font-style:italic;color:#c8a96e;}
+.fc-flinks{display:flex;gap:1.2rem;}
+.fc-flinks span{font-size:.7rem;color:rgba(247,242,232,.35);cursor:pointer;}
+.fc-fcopy{font-size:.68rem;color:rgba(247,242,232,.25);}
+
+/* MIZU */
+.mz{font-family:'Josefin Sans',sans-serif;background:#fafafa;color:#111;min-height:600px;}
+.mz-nav{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.5rem;background:rgba(250,250,250,.96);border-bottom:1px solid rgba(0,0,0,.07);}
+.mz-logo{font-size:.88rem;letter-spacing:.55em;color:#111;font-weight:200;text-transform:uppercase;}
+.mz-logo span{color:#c41e3a;}
+.mz-nl{display:flex;gap:2rem;list-style:none;}
+.mz-nl a{color:rgba(0,0,0,.3);text-decoration:none;font-size:.65rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;transition:color .2s;}
+.mz-nl a:hover{color:#111;}
+.mz-rbtn{background:#c41e3a;color:#fff;border:none;padding:.55rem 1.2rem;font-family:'Josefin Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;cursor:pointer;transition:all .2s;}
+.mz-rbtn:hover{background:#a01830;}
+
+.mz-hero{display:grid;grid-template-columns:1.2fr 1fr;min-height:380px;}
+.mz-hl{display:flex;flex-direction:column;justify-content:center;padding:3rem 3rem 3rem 2.5rem;}
+.mz-jp{font-size:.62rem;color:rgba(0,0,0,.18);letter-spacing:.18em;margin-bottom:1.8rem;font-weight:100;}
+.mz-h1{font-size:3.2rem;font-weight:100;letter-spacing:.1em;text-transform:uppercase;line-height:1.0;color:#111;margin-bottom:.4rem;}
+.mz-h1b{font-weight:400;}
+.mz-rl{width:24px;height:2px;background:#c41e3a;margin:1.2rem 0;}
+.mz-sub{font-size:.75rem;color:rgba(0,0,0,.38);line-height:2;font-weight:200;letter-spacing:.07em;max-width:280px;margin-bottom:2rem;}
+.mz-hbtns{display:flex;gap:1.2rem;align-items:center;}
+.mz-btr{background:#c41e3a;color:#fff;border:none;padding:.78rem 1.8rem;font-family:'Josefin Sans',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;cursor:pointer;transition:all .2s;}
+.mz-btr:hover{background:#a01830;}
+.mz-btg{background:transparent;color:#111;border:1px solid rgba(0,0,0,.18);padding:.78rem 1.8rem;font-family:'Josefin Sans',sans-serif;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:200;cursor:pointer;transition:all .2s;}
+.mz-btg:hover{border-color:#111;}
+.mz-hr{background:#111;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.mz-hpat{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(196,30,58,.07) 1px,transparent 1px);background-size:28px 28px;}
+.mz-ro{width:220px;height:220px;border-radius:50%;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;position:relative;animation:spin 28s linear infinite;}
+.mz-rm{width:155px;height:155px;border-radius:50%;border:1px solid rgba(196,30,58,.22);display:flex;align-items:center;justify-content:center;animation:spin 18s linear infinite reverse;}
+.mz-ri{width:90px;height:90px;border-radius:50%;border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;}
+.mz-cd{width:10px;height:10px;border-radius:50%;background:#c41e3a;animation:blink 2s ease-in-out infinite;}
+.mz-hst{position:absolute;right:1.5rem;top:50%;transform:translateY(-50%) rotate(90deg);font-size:.48rem;letter-spacing:.38em;color:rgba(255,255,255,.12);text-transform:uppercase;font-weight:100;}
+
+.mz-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(0,0,0,.07);border-bottom:1px solid rgba(0,0,0,.07);}
+.mz-si{padding:1.2rem 1.8rem;border-right:1px solid rgba(0,0,0,.07);}
+.mz-si:last-child{border-right:none;}
+.mz-sn{font-size:1.6rem;font-weight:100;color:#111;letter-spacing:.05em;}
+.mz-sn span{color:#c41e3a;}
+.mz-sl{font-size:.55rem;color:rgba(0,0,0,.28);letter-spacing:.18em;text-transform:uppercase;margin-top:.25rem;font-weight:200;}
+
+.mz-menu{padding:4rem 2.5rem;}
+.mz-mh{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:3rem;}
+.mz-mtag{font-size:.6rem;letter-spacing:.28em;color:#c41e3a;text-transform:uppercase;font-weight:300;margin-bottom:.8rem;}
+.mz-mh2{font-size:2.2rem;font-weight:100;letter-spacing:.1em;text-transform:uppercase;line-height:1.1;}
+.mz-mh2 strong{font-weight:300;color:#c41e3a;}
+.mz-mp{font-size:.78rem;color:rgba(0,0,0,.38);line-height:2.1;font-weight:200;letter-spacing:.05em;}
+.mz-mg{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+.mz-mi{padding:1.8rem;border:1px solid rgba(0,0,0,.07);margin:-1px 0 0 -1px;transition:all .3s;}
+.mz-mi:hover{background:#fff;box-shadow:0 3px 15px rgba(0,0,0,.05);}
+.mz-mc{font-size:.52rem;color:#c41e3a;letter-spacing:.22em;text-transform:uppercase;font-weight:300;margin-bottom:.35rem;}
+.mz-mn{font-size:.98rem;font-weight:300;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem;}
+.mz-mnj{font-size:.65rem;color:rgba(0,0,0,.22);letter-spacing:.08em;margin-bottom:.7rem;font-weight:100;}
+.mz-md{font-size:.75rem;color:rgba(0,0,0,.38);line-height:1.9;font-weight:200;letter-spacing:.03em;margin-bottom:.9rem;}
+.mz-mf{display:flex;justify-content:space-between;align-items:center;}
+.mz-mprice{font-size:.95rem;font-weight:200;color:#111;letter-spacing:.1em;}
+.mz-mdot{width:5px;height:5px;border-radius:50%;background:#c41e3a;}
+
+.mz-phil{display:grid;grid-template-columns:1fr 1fr;background:#111;}
+.mz-phl{padding:4rem 2.5rem;display:flex;flex-direction:column;justify-content:center;}
+.mz-phtag{font-size:.58rem;color:#c41e3a;letter-spacing:.28em;text-transform:uppercase;font-weight:200;margin-bottom:1.2rem;}
+.mz-phh2{font-size:2.5rem;font-weight:100;letter-spacing:.12em;text-transform:uppercase;color:#fafafa;line-height:1.1;margin-bottom:1.2rem;}
+.mz-phh2 strong{font-weight:300;color:#c41e3a;display:block;}
+.mz-php{font-size:.8rem;color:rgba(250,250,250,.32);line-height:2.2;font-weight:100;letter-spacing:.07em;margin-bottom:.8rem;}
+.mz-phq{font-size:.9rem;color:rgba(250,250,250,.45);font-style:italic;border-left:2px solid #c41e3a;padding-left:1.2rem;margin:1.5rem 0;letter-spacing:.04em;font-weight:200;line-height:1.9;}
+.mz-phr{display:grid;grid-template-rows:repeat(3,1fr);}
+.mz-phi{padding:1.8rem 2rem;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:1.5rem;}
+.mz-phi:last-child{border-bottom:none;}
+.mz-phn{font-size:2.5rem;font-weight:100;color:rgba(196,30,58,.28);letter-spacing:.08em;min-width:3.5rem;}
+.mz-phtitle{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,250,250,.55);font-weight:200;margin-bottom:.35rem;}
+.mz-phbody{font-size:.72rem;color:rgba(250,250,250,.22);line-height:1.8;font-weight:100;}
+
+.mz-res{padding:4rem 2.5rem;text-align:center;background:#fafafa;}
+.mz-rtag{font-size:.58rem;color:#c41e3a;letter-spacing:.28em;text-transform:uppercase;font-weight:200;margin-bottom:.8rem;}
+.mz-rh2{font-size:2.5rem;font-weight:100;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem;}
+.mz-rh2 strong{font-weight:300;display:block;color:#c41e3a;}
+.mz-rp{font-size:.75rem;color:rgba(0,0,0,.32);letter-spacing:.1em;font-weight:200;margin-bottom:2.5rem;}
+.mz-form{display:grid;grid-template-columns:repeat(4,1fr) auto;gap:0;max-width:820px;margin:0 auto;border:1px solid rgba(0,0,0,.1);}
+.mz-inp{background:transparent;border:none;border-right:1px solid rgba(0,0,0,.1);padding:.9rem 1.2rem;font-family:'Josefin Sans',sans-serif;font-size:.7rem;letter-spacing:.1em;font-weight:200;color:#111;outline:none;}
+.mz-inp::placeholder{color:rgba(0,0,0,.28);}
+.mz-fbtn{background:#c41e3a;color:#fff;border:none;padding:.9rem 1.5rem;font-family:'Josefin Sans',sans-serif;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;font-weight:300;cursor:pointer;white-space:nowrap;}
+
+.mz-foot{background:#0a0a0a;padding:2rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.04);}
+.mz-flogo{font-size:.78rem;letter-spacing:.48em;color:rgba(250,250,250,.35);font-weight:100;text-transform:uppercase;}
+.mz-flogo span{color:#c41e3a;}
+.mz-fcopy{font-size:.6rem;color:rgba(250,250,250,.12);letter-spacing:.12em;font-weight:100;}
+.mz-flinks{display:flex;gap:1.8rem;}
+.mz-flinks span{font-size:.6rem;color:rgba(250,250,250,.18);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;}
+
+/* AGENCY FOOTER */
+.ag-foot{background:#050505;border-top:1px solid rgba(255,255,255,.04);padding:3rem 2rem;}
+.ag-fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;max-width:1000px;margin:0 auto 2.5rem;}
+.ag-fb-brand p{color:rgba(245,240,232,.35);font-size:.8rem;line-height:1.8;margin-top:.8rem;font-weight:300;}
+.ag-fcol h4{font-size:.65rem;letter-spacing:.18em;color:rgba(245,240,232,.4);text-transform:uppercase;margin-bottom:1rem;}
+.ag-fcol ul{list-style:none;}
+.ag-fcol li{margin-bottom:.6rem;}
+.ag-fcol a{color:rgba(245,240,232,.3);text-decoration:none;font-size:.78rem;font-weight:300;transition:color .2s;}
+.ag-fcol a:hover{color:#e8a030;}
+.ag-fbot{border-top:1px solid rgba(255,255,255,.04);padding-top:1.5rem;max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;}
+.ag-fbot p{font-size:.7rem;color:rgba(245,240,232,.18);}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+let state = { view: 'agency', menuTab: 'starters' };
+
+function setState(updates) {
+  state = {...state, ...updates};
+  render();
+}
+
+function render() {
+  const root = document.getElementById('root');
+  if (state.view === 'agency') root.innerHTML = agencyHTML();
+  else if (state.view === 'd1') root.innerHTML = emberOakHTML();
+  else if (state.view === 'd2') root.innerHTML = zestyHTML();
+  else if (state.view === 'd3') root.innerHTML = floraCafeHTML();
+  else if (state.view === 'd4') root.innerHTML = mizuHTML();
+  attachEvents();
+}
+
+function attachEvents() {
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', () => setState({view: el.dataset.view}));
+  });
+  document.querySelectorAll('[data-tab]').forEach(el => {
+    el.addEventListener('click', () => setState({menuTab: el.dataset.tab}));
+  });
+}
+
+const menuData = {
+  starters: [
+    { e:'🥩', n:'Wagyu Beef Tartare', d:'Hand-cut A5 wagyu, quail egg, pickled shallot, truffle aioli', p:'$42', tags:['Signature','Raw'] },
+    { e:'🦞', n:'Butter-Poached Lobster', d:'Cold-water tail, saffron beurre blanc, micro herbs, caviar pearls', p:'$58', tags:['Seasonal'] },
+    { e:'🧅', n:'French Onion Bisque', d:'36-hour caramelized onion, aged gruyère croûte, sherry reduction', p:'$28', tags:['Classic'] },
+  ],
+  mains: [
+    { e:'🥩', n:'Prime Tomahawk Ribeye', d:'42oz dry-aged 45 days, bone marrow butter, truffle fries, demi', p:'$145', tags:["Chef's Pick","For Two"] },
+    { e:'🐟', n:'Seared Halibut', d:'Wild-caught Pacific, citrus-herb crust, saffron risotto, beurre blanc', p:'$68', tags:['Seasonal'] },
+    { e:'🍖', n:'Filet Mignon', d:'8oz prime center-cut, bordelaise sauce, potato gratin, haricots verts', p:'$95', tags:['Signature'] },
+  ],
+  desserts: [
+    { e:'🍫', n:'Valrhona Chocolate Sphere', d:'Dark ganache, salted caramel lava, vanilla bean ice cream, gold leaf', p:'$22', tags:['Showstopper'] },
+    { e:'🍮', n:'Crème Brûlée Classique', d:'Madagascar vanilla, torched sugar shell, fresh raspberries, sablé tuile', p:'$18', tags:['Classic'] },
+    { e:'🧀', n:'Artisan Cheese Board', d:'5 aged cheeses, honeycomb, candied walnuts, seasonal fruit compote', p:'$32', tags:['Shared'] },
+  ]
+};
+
+function agencyHTML() {
+  return `
+  <div class="ag">
+    <nav class="ag-nav">
+      <div class="ag-logo">Plate<span>Studio</span></div>
+      <ul class="ag-nav-links">
+        <li><a href="#">Work</a></li><li><a href="#">Services</a></li>
+        <li><a href="#">Process</a></li><li><a href="#">About</a></li>
+      </ul>
+      <button class="ag-cta">Start a Project</button>
+    </nav>
+    <section class="ag-hero">
+      <div class="hero-grid"></div>
+      <div class="hero-orb"></div>
+      <div class="hero-inner">
+        <div class="hero-badge">Restaurant Web Design Agency</div>
+        <h1 class="hero-h1">We Build Websites That <em>Fill Tables</em></h1>
+        <p class="hero-sub">PlateStudio crafts high-converting, visually stunning websites exclusively for restaurants, cafés, and food brands. Every pixel is designed to make guests hungry before they even arrive.</p>
+        <div class="hero-btns">
+          <button class="btn-gold">View Our Designs</button>
+          <button class="btn-outline">Book a Free Call</button>
+        </div>
+        <div class="stats-row">
+          ${[['200+','Clients'],['98%','Retention'],['3.2×','Bookings'],['48hr','Delivery']].map(([n,l])=>`<div><div class="stat-n">${n}</div><div class="stat-l">${l}</div></div>`).join('')}
+        </div>
+      </div>
+    </section>
+    <section class="designs-sec">
+      <div class="sec-head">
+        <div class="sec-tag">Our Design Styles</div>
+        <h2 class="sec-h2">Four Distinct <em>Restaurant Identities</em></h2>
+        <p class="sec-sub">Click any card below to experience a full live preview of each restaurant website design.</p>
+      </div>
+      <div class="designs-grid">
+        ${[
+          {id:'d1',num:'01',type:'Fine Dining Steakhouse',name:'Ember & Oak',desc:'Dark luxury aesthetic built for high-end steakhouses. Moody golds, layered textures, and reservation-forward design.',tags:['Fine Dining','Dark Theme','Reservations','Premium'],preview:miniPreview1()},
+          {id:'d2',num:'02',type:'Bold Fast Casual',name:'Zesty',desc:'High-energy street food brand with punchy Bebas Neue typography, electric yellow-black contrast, and conversion-optimized ordering flow.',tags:['Fast Casual','Bold Type','Online Ordering','High Energy'],preview:miniPreview2()},
+          {id:'d3',num:'03',type:'Cozy Café & Bakery',name:'Flora Café',desc:'Warm, organic café identity built around community and handcrafted quality. Perfect for artisan coffee shops.',tags:['Café','Warm Tones','Organic Feel','Community'],preview:miniPreview3()},
+          {id:'d4',num:'04',type:'Modern Japanese Omakase',name:'Mizu',desc:'Ultra-minimal Japanese restaurant identity with surgical precision and a red-accent system that commands respect.',tags:['Fine Japanese','Minimalist','Omakase','Luxury'],preview:miniPreview4()},
+        ].map(d=>`
+          <div class="dcard" data-view="${d.id}">
+            <div class="dcard-preview">
+              ${d.preview}
+              <div class="dcard-overlay"><div class="dcard-overlay-btn">View Full Design →</div></div>
+            </div>
+            <div class="dcard-info">
+              <div class="dcard-num">${d.num} — ${d.type}</div>
+              <div class="dcard-name">${d.name}</div>
+              <div class="dcard-desc">${d.desc}</div>
+              <div class="dcard-tags">${d.tags.map(t=>`<span class="dcard-tag">${t}</span>`).join('')}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <footer class="ag-foot">
+      <div class="ag-fg">
+        <div class="ag-fb-brand">
+          <div class="ag-logo" style="font-family:'Playfair Display',serif;font-size:1.05rem;letter-spacing:.1em;">Plate<span style="color:#e8a030;">Studio</span></div>
+          <p>The only web design agency that works exclusively with restaurants and food brands. We speak your language — covers, seatings, and tableside experiences translated into pixels.</p>
+        </div>
+        ${[['Services',['Restaurant Websites','Menu Design','Online Ordering','Brand Identity','SEO']],['Company',['About Us','Our Process','Case Studies','Blog','Careers']],['Contact',['hello@platestudio.co','Book a Free Call','Instagram','LinkedIn']]].map(([h,ls])=>`
+          <div class="ag-fcol"><h4>${h}</h4><ul>${ls.map(l=>`<li><a href="#">${l}</a></li>`).join('')}</ul></div>
+        `).join('')}
+      </div>
+      <div class="ag-fbot">
+        <p>© 2025 PlateStudio. All rights reserved.</p>
+        <p>Privacy Policy · Terms of Service</p>
+      </div>
+    </footer>
+  </div>`;
+}
+
+function miniPreview1() {
+  return `<div class="p1">
+    <div class="p1-nav"><div class="p1-logo">EMBER & OAK</div><div class="p1-links"><span>Menu</span><span>Reserve</span></div></div>
+    <div class="p1-hero">
+      <div class="p1-glow"></div>
+      <div class="p1-eye">✦ Fine Dining · Est. 2018</div>
+      <div class="p1-h">Where Fire<br/><em>Meets Flavor</em></div>
+      <button class="p1-btn">Reserve a Table</button>
+      <div class="p1-strips">
+        ${['#d4af37','#8b6914','#5a3e1b','#2d1a05'].map(c=>`<div class="p1-strip" style="background:${c}"></div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function miniPreview2() {
+  return `<div class="p2">
+    <div class="p2-nav"><div class="p2-logo">ZESTY</div><button class="p2-obtn">Order Now</button></div>
+    <div class="p2-hero">
+      <div class="p2-dots">${Array(16).fill(0).map(()=>`<div class="p2-dot"></div>`).join('')}</div>
+      <div class="p2-big">EAT<span>BOLD.</span></div>
+      <div class="p2-s">Street food. No apologies.</div>
+      <div class="p2-pills">
+        <div class="p2-pill">🌮 Tacos</div>
+        <div class="p2-pill r">🔥 Spicy</div>
+        <div class="p2-pill">🌯 Burritos</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function miniPreview3() {
+  return `<div class="p3">
+    <div class="p3-nav">
+      <div class="p3-logo"><em>Flora</em> Café</div>
+      <div class="p3-lnks"><span>Menu</span><span>About</span><span>Visit</span></div>
+    </div>
+    <div class="p3-hero">
+      <div class="p3-left">
+        <div class="p3-eye">✦ Artisan · Seasonal</div>
+        <div class="p3-h">Your Morning <em>Ritual,</em> Elevated</div>
+        <div class="p3-d">Handcrafted coffee & pastries made with love, sourced locally.</div>
+        <button class="p3-btn">See Our Menu</button>
+      </div>
+      <div class="p3-right">
+        <div class="p3-leaf" style="top:8%;left:8%;transform:rotate(-28deg)">🌸</div>
+        <div class="p3-circle"><div class="p3-ci"></div></div>
+      </div>
+    </div>
+    <div class="p3-bottom">
+      ${[['Hours','7am – 6pm'],['Location','Old Town'],['Special','Almond Croissant']].map(([l,v])=>`<div class="p3-si"><div class="p3-sl">${l}</div><div class="p3-sv">${v}</div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function miniPreview4() {
+  return `<div class="p4">
+    <div class="p4-nav">
+      <div class="p4-logo">MI<span>ZU</span></div>
+      <div class="p4-nr">
+        <div class="p4-nls"><span>Menu</span><span>Omakase</span><span>About</span></div>
+        <button class="p4-rbtn">Reserve</button>
+      </div>
+    </div>
+    <div class="p4-hero">
+      <div class="p4-left">
+        <div class="p4-jp">水 · 火 · 土 · 風 · 空</div>
+        <div class="p4-h">PURE<br/><strong>JAPANESE</strong></div>
+        <div class="p4-line"></div>
+        <div class="p4-sub">Omakase rooted in harmony, season, and silence.</div>
+      </div>
+      <div class="p4-right">
+        <div class="p4-ring">
+          <div class="p4-ring2">
+            <div class="p4-ring3"><div class="p4-dot"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p4-bottom">
+      ${[['Seats','18 Only'],['Rating','Michelin ★★★'],['Style','Omakase']].map(([l,v])=>`<div class="p4-bi"><div class="p4-bl">${l}</div><div class="p4-bv">${v}</div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function backBtn(view='agency') {
+  return `<button class="back-btn" data-view="${view}">← Portfolio</button>`;
+}
+
+function emberOakHTML() {
+  const items = menuData[state.menuTab];
+  return `<div class="eo">
+    ${backBtn()}
+    <nav class="eo-nav">
+      <ul class="eo-nl"><li><a href="#">Menu</a></li><li><a href="#">About</a></li></ul>
+      <div class="eo-logo-w"><div class="eo-logo-m">Ember & Oak</div><div class="eo-logo-s">Est. 2018 · Fine Dining</div></div>
+      <ul class="eo-nl"><li><a href="#">Events</a></li><li><a href="#" class="eo-rl">Reserve</a></li></ul>
+    </nav>
+    <section class="eo-hero">
+      <div class="eo-hbg"></div><div class="eo-htex"></div><div class="eo-himg"></div>
+      <div class="eo-hplate"><div class="eo-hpi">🥩</div></div>
+      <div class="eo-hc">
+        <div class="eo-pre"><div class="eo-line"></div><span class="eo-pt">Award-winning Fine Dining</span></div>
+        <h1 class="eo-h1"><em>Where Fire</em><strong>Meets Flavor</strong></h1>
+        <p class="eo-hdesc">An intimate dining experience where the ancient art of fire meets the precision of modern cuisine. Every cut is a story, every flame a tradition.</p>
+        <div class="eo-hbtns">
+          <button class="eo-bgold">Reserve a Table</button>
+          <button class="eo-bghost">View Menu</button>
+        </div>
+      </div>
+    </section>
+    <div class="eo-scroll"><div class="eo-sci">
+      ${Array(2).fill(0).map(()=>`<span style="display:flex;gap:2.5rem;align-items:center">
+        ${['Dry-Aged Steaks','Wood-Fired Grill','Sommelier Selection','Private Dining','Chef\'s Table','Farm-to-Table'].map(t=>`<span class="eo-si">${t}</span><span class="eo-sd">✦</span>`).join('')}
+      </span>`).join('')}
+    </div></div>
+    <section class="eo-about">
+      <div>
+        <div class="eo-atag">Our Story</div>
+        <h2 class="eo-ah2">The Art of the <em>Perfect Cut</em></h2>
+        <p class="eo-ap">"I believe the finest dining experience begins long before the first bite — it starts with the farmer, the fire, and the philosophy that extraordinary ingredients deserve extraordinary respect."</p>
+        <p class="eo-ap2">Chef Marcus Holloway spent twelve years mastering his craft across three Michelin-starred kitchens before returning home to open Ember & Oak. Our wood-fired hearth burns white oak from local farms, imparting a unique character to every dish.</p>
+      </div>
+      <div class="eo-sgrid">
+        ${[['12+','Years of Craft'],['3','Michelin Stars'],['98%','Guest Return'],['500+','Wine Labels']].map(([n,l],i)=>`
+          <div class="eo-sbox${i===1?' f':''}">
+            <div class="eo-snum">${n}</div><div class="eo-slabel">${l}</div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <section class="eo-menu">
+      <div class="eo-mhead">
+        <div class="eo-mtag">Culinary Offerings</div>
+        <h2 class="eo-mh2">The <em>Menu</em></h2>
+      </div>
+      <div style="text-align:center">
+        <div class="eo-tabs">
+          ${['starters','mains','desserts'].map(t=>`<button class="eo-tab${state.menuTab===t?' active':''}" data-tab="${t}">${t.charAt(0).toUpperCase()+t.slice(1)}</button>`).join('')}
+        </div>
+      </div>
+      <div class="eo-mgrid">
+        ${items.map(item=>`
+          <div class="eo-mi">
+            <div class="eo-mie">${item.e}</div>
+            <div class="eo-mitags">${item.tags.map(t=>`<span class="eo-mitag">${t}</span>`).join('')}</div>
+            <div class="eo-min">${item.n}</div>
+            <div class="eo-mid">${item.d}</div>
+            <div class="eo-mip">${item.p}</div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <section class="eo-res">
+      <div class="eo-resbg"></div>
+      <h2 class="eo-resh2">Make Your <em>Reservation</em></h2>
+      <p class="eo-resp">Secure your table and begin your evening of culinary excellence</p>
+      <div class="eo-form">
+        <input class="eo-inp" placeholder="Full Name" />
+        <input class="eo-inp" placeholder="Date" type="date" />
+        <input class="eo-inp" placeholder="Guests" type="number" min="1" />
+        <button class="eo-bgold">Confirm</button>
+      </div>
+    </section>
+    <footer class="eo-foot">
+      <div class="eo-flogo">Ember & Oak</div>
+      <div class="eo-fcopy">© 2025 Ember & Oak. All rights reserved.</div>
+      <div class="eo-flinks"><span>Instagram</span><span>Facebook</span><span>Privacy</span></div>
+    </footer>
+  </div>`;
+}
+
+function zestyHTML() {
+  const items = [
+    {e:'🌮',n:'The O.G. Taco Stack',d:'Triple-layered smash beef, ghost pepper salsa, pickled jalapeños',p:'$14'},
+    {e:'🌯',n:'Flame Burrito XL',d:'Charred chicken, black beans, habanero crema, loaded extras',p:'$16'},
+    {e:'🍟',n:'Devil Fries',d:'Shoestring fries, sriracha dust, nacho cheese, crispy onions',p:'$9'},
+    {e:'🥤',n:'Mango Habanero Shake',d:'Fresh mango, ghost pepper syrup, coconut milk, tajín rim',p:'$8'},
+  ];
+  return `<div class="zy">
+    ${backBtn()}
+    <nav class="zy-nav">
+      <div class="zy-logo">ZES<span>TY</span></div>
+      <ul class="zy-nl"><li><a href="#">Menu</a></li><li><a href="#">Locations</a></li><li><a href="#">Catering</a></li><li><a href="#">About</a></li></ul>
+      <button class="zy-obtn">🔥 Order Now</button>
+    </nav>
+    <section class="zy-hero">
+      <div class="zy-hl">
+        <div class="zy-stripe"></div>
+        <div class="zy-badge">🌶️ New Location Open</div>
+        <h1 class="zy-h1">EAT<span>BOLD.</span><em>Life's too short for bland food.</em></h1>
+        <p class="zy-sub">Street food so good it'll slap your taste buds into another dimension. Fresh, fast, ferociously flavored — every single time.</p>
+        <div class="zy-hbtns"><button class="zy-by">🔥 Order Online</button><button class="zy-br">📍 Find Us</button></div>
+      </div>
+      <div class="zy-hr">
+        <div class="zy-hpat"></div>
+        <div class="zy-hem">🌮</div>
+        <div class="zy-hct">ZESTY</div>
+      </div>
+    </section>
+    <div class="zy-mq"><div class="zy-mqi">
+      ${Array(3).fill(0).map(()=>['BOLD FLAVORS','FRESH DAILY','NO APOLOGIES','MADE TO SLAP','ORDER NOW'].map(t=>`<span class="zy-mq-item">${t}</span><span class="zy-mq-star">★</span>`).join('')).join('')}
+    </div></div>
+    <section class="zy-feat">
+      <div class="zy-fh">
+        <h2 class="zy-fh2">THE <span>MENU</span></h2>
+        <a href="#" class="zy-fl">Full Menu →</a>
+      </div>
+      <div class="zy-items">
+        ${items.map(i=>`<div class="zy-item">
+          <div class="zy-item-img">${i.e}</div>
+          <div class="zy-item-body">
+            <div class="zy-item-name">${i.n}</div>
+            <div class="zy-item-desc">${i.d}</div>
+            <div class="zy-item-ft"><span class="zy-item-price">${i.p}</span><button class="zy-add">+ Add</button></div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </section>
+    <section class="zy-ab">
+      <div class="zy-abl">
+        <div class="zy-abtag">Who We Are</div>
+        <h2 class="zy-abh2">WE DON'T <span>DO</span> BORING.</h2>
+        <p class="zy-abp">Zesty was born in a food truck with one belief: flavor should be fearless. We source the hottest peppers, freshest produce, and boldest spices to deliver street food that actually lives up to the hype.</p>
+        <div class="zy-sts">
+          ${[['50K+','Orders/Month'],['4.9★','Rating'],['12','Locations']].map(([n,l])=>`<div><div class="zy-st-n">${n}</div><div class="zy-st-l">${l}</div></div>`).join('')}
+        </div>
+      </div>
+      <div class="zy-abr">
+        <div class="zy-abrt">HOW IT WORKS</div>
+        ${[['ORDER','Pick your weapons from our menu of mouth-destroyers'],['PREP','Our crew fires it fresh — no heat lamps, no shortcuts'],['DEVOUR','Eat it while it\'s hot. Don\'t say we didn\'t warn you.']].map(([t,d],i)=>`
+          <div class="zy-step">
+            <div class="zy-sn">0${i+1}</div>
+            <div><div class="zy-st-title">${t}</div><div class="zy-st-desc">${d}</div></div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <footer class="zy-foot">
+      <div class="zy-flogo">ZES<span>TY</span></div>
+      <div class="zy-fcopy">© 2025 Zesty Foods. Eat bold, live loud.</div>
+      <div class="zy-fsoc">${['IG','TK','YT','FB'].map(s=>`<div class="zy-sb">${s}</div>`).join('')}</div>
+    </footer>
+  </div>`;
+}
+
+function floraCafeHTML() {
+  const specials = [
+    {e:'☕',n:'Signature Rose Latte',d:'Ethiopian espresso, steamed oat milk, house rose syrup, edible petals',p:'$7.50',bg:'w1'},
+    {e:'🥐',n:'Almond & Honey Croissant',d:'French-style laminated dough, wild honey, toasted almonds, apricot glaze',p:'$6.00',bg:'w2'},
+    {e:'🍰',n:'Seasonal Tart du Jour',d:'Handmade pastry shell, fresh seasonal fruit, vanilla crème pâtissière',p:'$9.50',bg:'w3'},
+  ];
+  return `<div class="fc">
+    ${backBtn()}
+    <nav class="fc-nav">
+      <div class="fc-logo"><em>Flora</em> Café</div>
+      <ul class="fc-nl"><li><a href="#">Menu</a></li><li><a href="#">About</a></li><li><a href="#">Events</a></li><li><a href="#">Visit</a></li></ul>
+      <button class="fc-obtn">Order Online</button>
+    </nav>
+    <section class="fc-hero">
+      <div class="fc-hl">
+        <div class="fc-htag">Small Batch · Hand-Crafted · Seasonal</div>
+        <h1 class="fc-h1">Your <em>Morning Ritual,</em> Elevated</h1>
+        <p class="fc-hp">Nestled in the heart of the neighbourhood, Flora is a sanctuary of slow mornings, artisan coffee, and pastries made before dawn by hands that care deeply about every crumb.</p>
+        <div class="fc-hbtns">
+          <button class="fc-bd">See Our Menu</button>
+          <button class="fc-bt">Our Story →</button>
+        </div>
+      </div>
+      <div class="fc-hr">
+        <div class="fc-blob"></div><div class="fc-blob2"></div>
+        <div class="fc-leaf1">🌸</div><div class="fc-leaf2">🌿</div><div class="fc-leaf3">🌱</div>
+        <div class="fc-hri">
+          <div class="fc-cup">☕</div>
+          <div class="fc-bpill">Open Daily 7am–6pm</div>
+        </div>
+      </div>
+    </section>
+    <section class="fc-spec">
+      <div class="fc-sh">
+        <h2 class="fc-sh2">Today's <em>Favourites</em></h2>
+        <span class="fc-sl">Full Menu →</span>
+      </div>
+      <div class="fc-sg">
+        ${specials.map(s=>`<div class="fc-sc">
+          <div class="fc-si ${s.bg}">${s.e}</div>
+          <div class="fc-sb">
+            <div class="fc-sn">${s.n}</div>
+            <div class="fc-sd">${s.d}</div>
+            <div class="fc-sf"><span class="fc-sp">${s.p}</span><button class="fc-sa">Add to Order</button></div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </section>
+    <section class="fc-story">
+      <div class="fc-stl">
+        <div class="fc-stt">Our Story</div>
+        <h2 class="fc-sth2">Made with <em>Intention,</em> Served with Love</h2>
+        <p class="fc-stp">"I opened Flora because I wanted a place where slowing down felt natural — where the coffee was thoughtful and the pastries tasted like Sunday morning."</p>
+        <p class="fc-stp2">Every item on our menu is made in-house each morning using locally-sourced, seasonal ingredients. We work with three nearby farms and a single-origin roaster who visits our kitchen every month.</p>
+        <div class="fc-sig">— Priya, Founder</div>
+      </div>
+      <div class="fc-str">
+        <div class="fc-gi" style="height:145px">🌸</div>
+        <div class="fc-gi" style="height:145px;background:#b89555">🥧</div>
+        <div class="fc-gi" style="height:95px;grid-column:span 2;background:#a07840;gap:1.5rem;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:2.5rem">☕</span><span style="font-size:2.5rem">🥐</span><span style="font-size:2.5rem">🌿</span>
+        </div>
+      </div>
+    </section>
+    <footer class="fc-foot">
+      <div class="fc-flogo"><em>Flora</em> Café</div>
+      <div class="fc-flinks"><span>Instagram</span><span>Menu</span><span>Contact</span></div>
+      <div class="fc-fcopy">© 2025 Flora Café. Made with love.</div>
+    </footer>
+  </div>`;
+}
+
+function mizuHTML() {
+  const items = [
+    {cat:'Sashimi',n:'OTORO SELECTION',jp:'大トロ盛り合わせ',d:'Premium bluefin tuna belly, aged 10 days, served at cellar temperature with aged soy',p:'¥4,800',sig:true},
+    {cat:'Nigiri',n:'UNI IKURA',jp:'雲丹いくら',d:'Hokkaido sea urchin, salmon roe, shiso-infused vinegar rice, gold flake',p:'¥3,200',sig:false},
+    {cat:'Signature Roll',n:'SAKURA DRAGON',jp:'桜ドラゴン',d:'Spicy tuna, cucumber, topped with seared wagyu, truffle ponzu, micro shiso',p:'¥5,400',sig:true},
+    {cat:'Soup',n:'DASHI CONSOMMÉ',jp:'出汁コンソメ',d:'72-hour kombu and katsuobushi, seasonal mushrooms, tofu, spring onion oil',p:'¥1,800',sig:false},
+  ];
+  return `<div class="mz">
+    ${backBtn()}
+    <nav class="mz-nav">
+      <ul class="mz-nl"><li><a href="#">Menu</a></li><li><a href="#">Omakase</a></li></ul>
+      <div class="mz-logo">MI<span>ZU</span></div>
+      <div style="display:flex;gap:2rem;align-items:center">
+        <ul class="mz-nl"><li><a href="#">About</a></li><li><a href="#">Visit</a></li></ul>
+        <button class="mz-rbtn">Reserve</button>
+      </div>
+    </nav>
+    <section class="mz-hero">
+      <div class="mz-hl">
+        <div class="mz-jp">水 · 火 · 土 · 風 · 空</div>
+        <h1 class="mz-h1">PURE<br/><span class="mz-h1b">JAPANESE</span></h1>
+        <div class="mz-rl"></div>
+        <p class="mz-sub">An omakase experience rooted in the ancient Japanese philosophy of harmony — between ingredient, technique, and season.</p>
+        <div class="mz-hbtns"><button class="mz-btr">Book Omakase</button><button class="mz-btg">View Menu</button></div>
+      </div>
+      <div class="mz-hr">
+        <div class="mz-hpat"></div>
+        <div class="mz-ro"><div class="mz-rm"><div class="mz-ri"><div class="mz-cd"></div></div></div></div>
+        <div class="mz-hst">Tokyo · New York · London</div>
+      </div>
+    </section>
+    <div class="mz-strip">
+      ${[['18','Seat Omakase'],['72hrs','Aged Cuts'],['3','Michelin Stars'],['1989','Founded']].map(([n,l])=>`
+        <div class="mz-si"><div class="mz-sn">${n}</div><div class="mz-sl">${l}</div></div>`).join('')}
+    </div>
+    <section class="mz-menu">
+      <div class="mz-mh">
+        <div>
+          <div class="mz-mtag">Seasonal Offerings</div>
+          <h2 class="mz-mh2">THE<br/><strong>MENU</strong></h2>
+        </div>
+        <p class="mz-mp">Our menu changes with the season, guided by the finest imports from Tsukiji and our relationships with local purveyors who share our reverence for quality.</p>
+      </div>
+      <div class="mz-mg">
+        ${items.map(i=>`<div class="mz-mi">
+          <div class="mz-mc">${i.cat}${i.sig?" · Chef's Selection":""}</div>
+          <div class="mz-mn">${i.n}</div>
+          <div class="mz-mnj">${i.jp}</div>
+          <div class="mz-md">${i.d}</div>
+          <div class="mz-mf"><span class="mz-mprice">${i.p}</span>${i.sig?`<div class="mz-mdot"></div>`:''}</div>
+        </div>`).join('')}
+      </div>
+    </section>
+    <section class="mz-phil">
+      <div class="mz-phl">
+        <div class="mz-phtag">Our Philosophy</div>
+        <h2 class="mz-phh2">RESPECT THE<strong>INGREDIENT.</strong></h2>
+        <p class="mz-php">At Mizu, we believe that the chef's greatest role is restraint. Our job is to listen to the ingredient, understand its nature, and present it at the exact moment of its perfection.</p>
+        <div class="mz-phq">"Cooking is not about cleverness. It is about clarity."<br/>— Chef Kenji Murai</div>
+      </div>
+      <div class="mz-phr">
+        ${[['01','Provenance','We know every farmer, fisher, and forager we work with'],['02','Timing','Every dish is prepared at the precise moment it reaches perfection'],['03','Silence','The dining room is a place of quiet contemplation and focused pleasure']].map(([n,t,d])=>`
+          <div class="mz-phi">
+            <div class="mz-phn">${n}</div>
+            <div><div class="mz-phtitle">${t}</div><div class="mz-phbody">${d}</div></div>
+          </div>`).join('')}
+      </div>
+    </section>
+    <section class="mz-res">
+      <div class="mz-rtag">Reservations</div>
+      <h2 class="mz-rh2">SECURE YOUR<strong>EXPERIENCE.</strong></h2>
+      <p class="mz-rp">Omakase seats are limited to 18 guests per seating. Advance reservation required.</p>
+      <div class="mz-form">
+        <input class="mz-inp" placeholder="Name" />
+        <input class="mz-inp" placeholder="Date" type="date" />
+        <input class="mz-inp" placeholder="Guests" type="number" min="1" max="18" />
+        <input class="mz-inp" placeholder="Email" type="email" />
+        <button class="mz-fbtn">Reserve →</button>
+      </div>
+    </section>
+    <footer class="mz-foot">
+      <div class="mz-flogo">MI<span>ZU</span></div>
+      <div class="mz-fcopy">© 2025 Mizu Restaurant Group. All rights reserved.</div>
+      <div class="mz-flinks"><span>Privacy</span><span>Instagram</span><span>Press</span></div>
+    </footer>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
